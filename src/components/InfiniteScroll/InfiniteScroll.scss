@@ -1,0 +1,21 @@
+$list-item-height: 50px;
+$scroll-wrapper-height: ($list-item-height * 10);
+
+.scroll-wrapper {
+    height: $scroll-wrapper-height;
+    overflow-y: scroll;
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    height: $list-item-height;
+
+    img {
+        height: $list-item-height;
+    }
+    p {
+        margin-left: 10px;
+        vertical-align: middle;
+    }
+}

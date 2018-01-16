@@ -1,14 +1,14 @@
-import { GET_PHOTOS } from '../actions/constants';
+import { SET_PHOTOS_IDX } from '../actions/constants';
 
-export default function app(
-    state = { photos: [] },
+export default function infiniteScroll(
+    state = { idx: 0 },
     action: { type: string; value: any[] },
 ) {
     switch (action.type) {
-        case GET_PHOTOS:
+        case SET_PHOTOS_IDX:
             return {
                 ...state,
-                photos: action.value,
+                idx: action.value,
             };
         default:
             return state;

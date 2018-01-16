@@ -3,7 +3,7 @@ export default (req, res) => {
 		<!doctype html>
 		<html>
 			<head>
-			<title>Typescript Webpack Node Docker Starter</title>
+			<title>Infinite Scroll</title>
 			<link rel="manifest" href="/manifest.json">
 				${
                     process.env.NODE_ENV === 'production'

@@ -6,6 +6,8 @@ import morgan from 'morgan';
 import path from 'path';
 import webpack from 'webpack';
 import bodyParser from 'body-parser';
+import cors from 'cors';
+import axios from 'axios';
 
 process.on('uncaughtException', function(err) {
     console.error(
@@ -23,11 +25,11 @@ const port = isDeveloping ? 3000 : process.env.PORT;
 
 const app = express();
 const staticPath = path.join(__dirname, 'build');
+app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(staticPath));
-
 if (isDeveloping) {
     const config = require('./webpack.config.dev');
     const compiler = webpack(config);
@@ -52,13 +54,19 @@ if (isDeveloping) {
     app.use(express.static(path.resolve(__dirname, 'dist')));
 }
 
-app.get('/title', function(req, res) {
-    return res.json({
-        title: 'Hello World!',
-    });
+app.listen(port, function() {
+    console.log('Project Running on port', port);
 });
 
-app.listen(port, function() {
-    console.log('Project Running');
+app.get('/photos', (req, res) => {
+    axios
+        .get('https://jsonplaceholder.typicode.com/photos')
+        .then(resp => {
+            return res.send(resp.data);
+        })
+        .catch(err => {
+            console.log('err', err);
+            return res.send(err);
+        });
 });
 app.get('*', middleware);

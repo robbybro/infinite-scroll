@@ -1,18 +1,18 @@
-import { GET_TITLE } from './constants';
 import axios from 'axios';
 
-export function getTitle(title: string) {
+import { GET_PHOTOS } from './constants';
+
+export function getPhotos() {
     return (dispatch: Function) => {
-        axios.get('/title').then((res: any) => {
-            console.log(res);
-            dispatch(getTitleSuccess(res.data.title));
+        axios.get('/photos').then((res: any) => {
+            dispatch(getPhotosSuccess(res.data));
         });
     };
 }
 
-function getTitleSuccess(title: string) {
+function getPhotosSuccess(photos: any[]) {
     return {
-        type: GET_TITLE,
-        value: title,
+        type: GET_PHOTOS,
+        value: photos,
     };
 }

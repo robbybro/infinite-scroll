@@ -4,7 +4,10 @@ import reducers from './reducers/index';
 
 const initialStore = {
     app: {
-        title: 'initial title',
+        photos: [],
+    },
+    scroll: {
+        idx: 30,
     },
 };
 

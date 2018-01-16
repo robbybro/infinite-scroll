@@ -5,12 +5,14 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-h1 {
+header {
   text-align: center;
   background-color: #dee;
   color: #555;
-  line-height: 50vh;
-  width: 50vw;
-  margin: 25vh 25vw 25vh 25vw;
-  vertical-align: center;
+  padding: 5vh;
+  margin: 0;
+}
+
+h1, h2 {
+  margin: 0;
 }

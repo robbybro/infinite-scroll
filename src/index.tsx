@@ -3,7 +3,9 @@ import * as ReactDOM from 'react-dom';
 import { connect, Provider } from 'react-redux';
 
 import App from './components/App/App';
-import { getTitle } from './actions/app';
+import { getPhotos } from './actions/app';
+import { setPhotosIdx } from './actions/infiniteScroll';
+
 import store from './store';
 
 const mapStateToProps = (state:any, props:any) => {
@@ -12,26 +14,30 @@ const mapStateToProps = (state:any, props:any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        getTitle: (title:string) => dispatch(getTitle(title))
+        getPhotos: () => dispatch(getPhotos()),
+        setPhotosIdx: (idx) => dispatch(setPhotosIdx(idx))
     };
 };
 
 
-const ControlledApp = connect(mapStateToProps, mapDispatchToProps)(App);
 
-const render = () =>
+const render = Component => {
+    const ControlledApp = connect(mapStateToProps, mapDispatchToProps)(Component);
     ReactDOM.render(
         <Provider store={store}>
             <ControlledApp />
         </Provider>,
         document.getElementById('app'),
     );
+};
 
-render();
+render(App);
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
     module.hot.accept('./reducers', () => {
         store.replaceReducer(require('./reducers/index').default);
     });
-    module.hot.accept('./components/App/App', () => render());
+    module.hot.accept('./components/App/App', function() {
+        render(App);
+    });
 }
